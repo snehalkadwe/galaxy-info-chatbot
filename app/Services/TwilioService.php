@@ -12,8 +12,8 @@ class TwilioService
 
     public function __construct()
     {
-        $this->client = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
-        $this->from = env('TWILIO_WHATSAPP_FROM');
+        $this->client = new Client(config('chatbot-configs.twilio.sid'), config('chatbot-configs.twilio.auth_token'));
+        $this->from = config('chatbot-configs.twilio.from');
     }
 
     public function sendWhatsAppMessage($to, $message)
