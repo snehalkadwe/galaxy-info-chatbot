@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Services\TwilioService;
+use Illuminate\Support\Facades\Log;
 
 class GalaxyBotController extends Controller
 {
@@ -15,19 +16,25 @@ class GalaxyBotController extends Controller
         $this->twilioService = $twilioService;
     }
 
+    // Get a message from user from whatsapp
     public function receiveWhatsAppMessage(Request $request)
     {
-        $planet = $request->input('body');
+        $question = $request->input('Body');
+
+        Log::info($request->all());
+
+        // number to which response is sent
         $to = config('chatbot-configs.twilio.to');
 
-        $info = $this->sendRequest($planet);
+        // send name of the question to AI to get the information
+        $info = $this->sendRequest($question);
 
         $this->twilioService->sendWhatsAppMessage($to, $info);
 
         return response()->json(['message' => 'Response sent!']);
     }
 
-    public function sendRequest($planet)
+    public function sendRequest($question)
     {
         $accountId = config('chatbot-configs.cloudflare.account_id');
 
@@ -44,11 +51,11 @@ class GalaxyBotController extends Controller
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => 'You have to provides history of the planet provided by the user'
+                        'content' => 'You are GalaxyBot, a knowledgeable cosmic companion who provides detailed and accurate information related to galaxies, stars, and the mysteries of the universe. You deliver information in a concise, factual manner without including greetings or unnecessary introductions.'
                     ],
                     [
                         'role' => 'user',
-                        'content' => 'Provide detailed information about the star named ' . $planet
+                        'content' => 'The user has asked for information about a specific star or galaxy. Provide detailed and accurate information in the following format:\n\n1. Name and Classification: \n2. Key Characteristics: \n3. Historical Significance: \n4. Interesting Facts: \n\nHere is the query: ' . $question
                     ]
                 ]
             ]

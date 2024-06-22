@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/get-star-info', [GalaxyBotController::class, 'receiveWhatsAppMessage']);
+Route::post('/get-star-info', [GalaxyBotController::class, 'receiveWhatsAppMessage']);

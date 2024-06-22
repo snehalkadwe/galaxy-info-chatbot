@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
+use Twilio\TwiML\MessagingResponse;
 
 class TwilioService
 {
@@ -12,18 +13,21 @@ class TwilioService
 
     public function __construct()
     {
-        $this->client = new Client(config('chatbot-configs.twilio.sid'), config('chatbot-configs.twilio.auth_token'));
+        $sId = config('chatbot-configs.twilio.sid');
+        $authToken = config('chatbot-configs.twilio.auth_token');
+
+        $this->client = new Client($sId, $authToken);
         $this->from = config('chatbot-configs.twilio.from');
     }
 
-    public function sendWhatsAppMessage($to, $message)
+    // Send the response received from AI model to the user on whatsapp sandbox
+    public function sendWhatsAppMessage($to, $information)
     {
         try {
             $this->client->messages->create($to, [
                 'from' => $this->from,
-                'body' => $message,
+                'body' => $information,
             ]);
-            return response()->json(['message' => 'message sent successfully']);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
