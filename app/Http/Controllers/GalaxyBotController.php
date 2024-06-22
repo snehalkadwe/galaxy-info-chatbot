@@ -40,7 +40,7 @@ class GalaxyBotController extends Controller
         $accountId = config('chatbot-configs.cloudflare.account_id');
 
         $client = new Client();
-        $url = 'https://api.cloudflare.com/client/v4/accounts/' . $accountId . '/ai/run/@cf/meta/llama-2-7b-chat-int8';
+        $url = 'https://api.cloudflare.com/client/v4/accounts/' . $accountId . '/ai/run/@cf/meta/llama-2-7b-chat-fp16';
         $authorizationToken = config('chatbot-configs.cloudflare.api_key');
 
         $response = $client->post($url, [
