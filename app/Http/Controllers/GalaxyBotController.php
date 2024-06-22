@@ -23,13 +23,15 @@ class GalaxyBotController extends Controller
 
         Log::info($request->all());
 
+        $from = $request->input('From');
+        $to = $request->input('To');
         // number to which response is sent
-        $to = config('chatbot-configs.twilio.to');
+        // $to = config('chatbot-configs.twilio.to');
 
         // send name of the question to AI to get the information
         $info = $this->sendRequest($question);
 
-        $this->twilioService->sendWhatsAppMessage($to, $info);
+        $this->twilioService->sendWhatsAppMessage($to, $from, $info);
 
         return response()->json(['message' => 'Response sent!']);
     }
