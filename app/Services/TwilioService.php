@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
-use Twilio\TwiML\MessagingResponse;
 
 class TwilioService
 {
