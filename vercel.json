@@ -23,8 +23,8 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://laravel-vercel-project.vercel.app",
-        "APP_KEY": "base64:BA4CDWO50udSYWfwYzzWkAGb/HYpSMII9AkZNZjHp4c=",
+        "APP_URL": "https://galaxy-info-chatbot.vercel.app",
+        "APP_KEY": "base64:YwD/HZtnGLQl+z/ut+cVLISlby5HUSAh0my7XtZPWYI=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
