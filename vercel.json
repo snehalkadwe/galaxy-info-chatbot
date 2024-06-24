@@ -1,15 +1,5 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "api/index.php",
-            "use": "@vercel/php",
-            "config": {
-                "includeFiles": "public/**"
-            },
-            "buildCommand": "./install.sh && composer install"
-        }
-    ],
     "framework": null,
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
