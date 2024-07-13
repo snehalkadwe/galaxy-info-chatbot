@@ -22,6 +22,7 @@ class TwilioService
     // Send the response received from AI model to the user on whatsapp sandbox
     public function sendWhatsAppMessage($to, $information)
     {
+        Log::info(['to' => $to, 'from' => $this->from]);
         try {
             $this->client->messages->create($to, [
                 'from' => $this->from,
